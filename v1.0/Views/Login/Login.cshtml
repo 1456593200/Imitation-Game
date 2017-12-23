@@ -3,10 +3,90 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <title>登陆</title>
+    <link href="~/Content/css/Style_login.css" rel="stylesheet" />
+    <link href="~/Content/css/Style_index.css" rel="stylesheet" />
+    <script src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
 </head>
 <body>
-    <div> 
+    <div id="topwrapper">
+        <div id="top">
+            <div id="logo">
+                <img src="~/Content/img/20171219.png" width="210" height="46" alt="模仿游戏" />
+            </div>
+            <div id="menu">
+                <ul id="menuul">
+                    <li class="menuli">
+                        <span>首页</span>
+                    </li>
+                    <li class="menuli">
+                        <span>产品</span>
+                    </li>
+                    <li class="menuli">
+                        <span>安全</span>
+                    </li>
+                    <li class="menuli">
+                        <span>联系我们</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
     </div>
+    <div id="content">
+        <div id="content-box">
+            <div id="piclogin">
+                <img src="~/Content/img/20171220.jpg" width="480" height="300" />
+            </div>
+            <div id="login-form">
+                <h1>欢迎登陆模仿游戏</h1>
+                <div class="form-group">
+                    <input type="text" class="form-control" placeholder="用户名" id="txt_account">
+                    <i class="fa fa-user"></i>
+                </div>
+                <div class="form-group log-status">
+                    <input type="password" class="form-control" placeholder="密码" id="txt_password">
+                    <i class="fa fa-lock"></i>
+                </div>
+                <a  href="JavaScript:void(0)" class="log-btn" id="login_button" onclick="login()" target="_blank"><span>登 录</span></a>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function login() {
+            var UserName = $("txt_account").val();
+            var UserPwd = $("txt_password").val();
+            if (UserName == " ") {
+                alert("账户不能为空");
+                return;
+            }
+            else if (UserPwd == " ") {
+                alert("请输入密码");
+                return;
+            }
+            else {
+                $.ajax({
+                    url: "/Login/LoginIn",
+                    type: "post",
+                    datatype: "text",
+                    contentType: "application/x-www-form-urlencoded",
+                    data: { UserName: UserName, UserPwd: UserPwd },
+                    success: function (result, status) {
+                        if (result == 200){
+                            alert("Success");
+                        }
+                        else {
+                            alert("error1");
+                        }
+                    },
+                    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        alert(XMLHttpRequest.status);
+                        alert(XMLHttpRequest.readyState);
+                        alert(textStatus);
+                    }
+                });
+            }
+        }
+    </script>
 </body>
 </html>
