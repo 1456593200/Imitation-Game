@@ -47,15 +47,15 @@
                     <input type="password" class="form-control" placeholder="密码" id="txt_password">
                     <i class="fa fa-lock"></i>
                 </div>
-                <a  href="JavaScript:void(0)" class="log-btn" id="login_button" onclick="login()" target="_blank"><span>登 录</span></a>
+                <a  href="JavaScript:void(0)" class="log-btn" id="login_button" onclick="login()"><span>登 录</span></a>
             </div>
         </div>
     </div>
 
     <script type="text/javascript">
         function login() {
-            var UserName = $("txt_account").val();
-            var UserPwd = $("txt_password").val();
+            var UserName = $("#txt_account").val();
+            var UserPwd = $("#txt_password").val();
             if (UserName == " ") {
                 alert("账户不能为空");
                 return;
@@ -70,7 +70,7 @@
                     type: "post",
                     datatype: "text",
                     contentType: "application/x-www-form-urlencoded",
-                    data: { UserName: UserName, UserPwd: UserPwd },
+                    data: {"UserName1": UserName, "UserPwd1": UserPwd},
                     success: function (result, status) {
                         if (result == 200){
                             alert("Success");

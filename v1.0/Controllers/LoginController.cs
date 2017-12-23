@@ -13,18 +13,13 @@ namespace v1.Controllers
         {
             return View();
         }
-        public ActionResult Login(string UserName,string UserPwd)
+        public ActionResult Login()
         {
-            //    if(UserName =="admin" && UserPwd=="123456")
-            //    {
-            //        return 200;     //登陆成功
-            //    }
-            //    return 0;             //登陆失败
             return View();
         }
-        public int LoginIn(string UserName, string UserPwd)
+        public int LoginIn(string UserName1, string UserPwd1)
         {
-            if (UserName == "admin" && UserPwd == "123456")
+            if (UserName1 == "admin" && UserPwd1 == "123456")
             {
                 return 200;     //登陆成功
             }
