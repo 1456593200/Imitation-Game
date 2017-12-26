@@ -1,5 +1,4 @@
-﻿using cn.bmob.io;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,11 +9,6 @@ namespace v1.Controllers
 {
     public class LoginController : Controller
     {
-
-
-        public const String TABLE_NAME = "dt_admin";
-        private GameObject gameObject = new GameObject(TABLE_NAME);
-
         // GET: Login
         public ActionResult Index()
         {
@@ -24,16 +18,23 @@ namespace v1.Controllers
         {
             return View();
         }
-        public int LoginIn(string UserName1, string UserPwd1)
-        {
-            //创建一个BmobQuery查询对象
-            BmobQuery query = new BmobQuery();
 
-            if (query.WhereEqualTo("userName", UserName1).ToString()!=""&& query.WhereEqualTo("userName", UserName1).ToString()!="")
+        public ActionResult LoginIn(string UserName, string UserPwd)
+        {
+            try
             {
-                return 200;     //登陆成功
+                if (UserName == "admin")
+                    return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+                else if (UserPwd == "123456")
+                    return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+                else
+                    return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
             }
-            return 0;             //登陆失败
+
+            catch (Exception ex)
+            {
+                return Content(new AjaxResult { state = ResultType.error.ToString(), message = ex.Message }.ToJson());
+            }
         }
     }
 }
