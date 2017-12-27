@@ -128,6 +128,16 @@
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\v1.Application\v1.Application.csproj">
+      <Project>{B0908A9C-9A47-455B-9B91-01281261C8F3}</Project>
+      <Name>v1.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\v1.Infrastructure\v1.Infrastructure.csproj">
+      <Project>{45BB00FE-7C54-468D-B5E3-4AF222F04D9C}</Project>
+      <Name>v1.Infrastructure</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
