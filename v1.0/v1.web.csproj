@@ -44,6 +44,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Bmob-Windows, Version=1.5.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\Bmob-Windows.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.7\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
@@ -132,6 +136,10 @@
     <ProjectReference Include="..\v1.Application\v1.Application.csproj">
       <Project>{B0908A9C-9A47-455B-9B91-01281261C8F3}</Project>
       <Name>v1.Application</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\v1.Entities\v1.Entities.csproj">
+      <Project>{CF3C2356-7566-4F3E-9092-E9F18BD69985}</Project>
+      <Name>v1.Entities</Name>
     </ProjectReference>
     <ProjectReference Include="..\v1.Infrastructure\v1.Infrastructure.csproj">
       <Project>{45BB00FE-7C54-468D-B5E3-4AF222F04D9C}</Project>

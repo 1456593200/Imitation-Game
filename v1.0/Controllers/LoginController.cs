@@ -1,10 +1,15 @@
-﻿using System;
+﻿using cn.bmob.api;
+using cn.bmob.io;
+using cn.bmob.tools;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using v1._0.Models;
 using v1.Application.Services;
+using v1.Entities.Initializer;
 using v1.Infrastructure.DBContext;
 
 namespace v1.Controllers
@@ -24,15 +29,36 @@ namespace v1.Controllers
         [HttpPost]
         public ActionResult LoginIn(string UserName, string UserPwd)
         {
-            var result = new ManagerServices().Login(UserName, UserPwd);
-            if(result)
+
+            //var result = new ManagerServices().Login(UserName, UserPwd);
+            //if(result)
+            //{
+            //    return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+            //}
+            //else
+            //{
+            //    return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
+            //}
+
+            BmobWindows bmob = new BmobWindows();
+            bmob.initialize("69e01e36e091bee65ebeb8f93604f474", "8b0d500c09ff5c86cfcd3358b5104b05");
+            BmobDebug.Register(msg => { Debug.WriteLine(msg); });
+
+            BmobUser user = new BmobUser();
+
+            bmob.Login<BmobUser>(UserName, UserPwd, (resp, exception) =>
             {
-                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
-            }
-            else
-            {
-                return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
-            }
+                if (exception != null)
+                {
+                    Debug.WriteLine("登录失败, 失败原因为： " + exception.Message);
+                    return;
+                }
+
+                Debug.WriteLine("登录成功, 当前用户对象Session： " + BmobUser.CurrentUser.sessionToken);
+
+            });
+
+            return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
             //try
             //{
             //    if (UserName == "admin")
