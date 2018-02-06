@@ -40,25 +40,31 @@ namespace v1.Controllers
             //    return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
             //}
 
-            BmobWindows bmob = new BmobWindows();
-            bmob.initialize("69e01e36e091bee65ebeb8f93604f474", "8b0d500c09ff5c86cfcd3358b5104b05");
-            BmobDebug.Register(msg => { Debug.WriteLine(msg); });
-
+            bool flag;
             BmobUser user = new BmobUser();
-
+            BmobWindows bmob = new BmobWindows();
             bmob.Login<BmobUser>(UserName, UserPwd, (resp, exception) =>
             {
                 if (exception != null)
                 {
+                    flag = false;
                     Debug.WriteLine("登录失败, 失败原因为： " + exception.Message);
                     return;
                 }
-
+                flag = true;
                 Debug.WriteLine("登录成功, 当前用户对象Session： " + BmobUser.CurrentUser.sessionToken);
 
             });
 
-            return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+            if(flag)
+            {
+                return Content(new AjaxResult { state = ResultType.success.ToString(), message = "登录成功。" }.ToJson());
+            }
+            else
+            {
+                return Content(new AjaxResult { state = ResultType.error.ToString(), message = "请验证帐号及密码！" }.ToJson());
+            }
+            
             //try
             //{
             //    if (UserName == "admin")
