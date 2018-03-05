@@ -37,84 +37,23 @@
             <div id="piclogin">
                 <img src="~/Content/img/20171220.jpg" width="480" height="300" />
             </div>
-            <div id="login-form">
-                <h1>欢迎登陆模仿游戏</h1>
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="用户名" id="txt_account">
-                    <i class="fa fa-user"></i>
+            <form action="/Login/LoginIn" method="post">
+                <div id="login-form">
+                    <h1>欢迎登陆模仿游戏</h1>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="用户名" name="txt_account">
+                        <i class="fa fa-user"></i>
+                    </div>
+                    <div class="form-group log-status">
+                        <input type="password" class="form-control" placeholder="密码" name="txt_password">
+                        <i class="fa fa-lock"></i>
+                    </div>
+                    <button type="submit" class="log-btn" id="login_button"><span>登 录</span></button>
+                    <div class="login_tips" style="color:red;"></div>
                 </div>
-                <div class="form-group log-status">
-                    <input type="password" class="form-control" placeholder="密码" id="txt_password">
-                    <i class="fa fa-lock"></i>
-                </div>
-                <button type="button" class="log-btn" id="login_button"><span>登 录</span></button>
-                <div class="login_tips" style="color:red;"></div>
-            </div>
+            </form>
         </div>
     </div>
 
-    <script type="text/javascript">
-        (function ($) {
-            $.login = {
-                formMessage: function (msg) {                           //函数功能：用于修改错误提示信息
-                    $('.login_tips').find('.tips_msg').remove();
-                    $('.login_tips').append('<div class="tips_msg"><i class="fa fa-question-circle"</i>' + msg + '</div>');
-                },
-
-                loginClick: function () {                                   //函数功能：用于响应登录按键的点击事件
-                    var $username = $("#txt_account");
-                    var $password = $("#txt_password");
-                    if ($username.val() == "") {
-                        $username.focus();
-                        $.login.formMessage('请输入用户名');
-                        return false;
-                    }
-                    else if ($password.val() == "") {
-                        $password.focus();
-                        $.login.formMessage('请输入密码');
-                        return false;
-                    }
-                    else {
-                        $.login.formMessage(' ');
-                        $('#login_button').attr('disabled', 'disabled').find('span').html("验证中......");
-                        $.ajax({                                                  //通过ajax同服务器通信，对用户名、密码及验证码的信息进行验证
-                            url: "/Login/LoginIn",
-                            data: { UserName: $.trim($username.val()), UserPwd: $.trim($password.val()) },
-                            type: "post",
-                            dataType: "json",
-                            success: function (data) {
-                                if (data.state == "success") {
-                                    $('#login_button').find('span').html("验证成功，正在跳转.....");
-                                    window.setTimeout(function () {
-                                        window.location.href = "/Login/Index";
-                                    }, 500);
-                                }
-                                else {
-                                    $('#login_button').removeAttr('disabled').find('span').html("登录");
-                                    $.login.formMessage(data.message);
-                                }
-                            }
-                        });
-                    }
-                },
-                init: function () {
-                    $("#login_button").click(function () {
-                        $.login.loginClick();
-                    });
-                    document.onkeydown = function (e) {
-                        if (!e) e = window.event;
-                        if ((e.keyCode || e.which) == 13) {
-                            document.getElementById("login_button").focus();
-                            document.getElementById("login_button").click();
-                        }
-                    }
-                }
-            };
-            $(function () {
-                $.login.init();
-            });
-        })(jQuery);
-
-    </script>
 </body>
 </html>
